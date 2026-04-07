@@ -73,6 +73,7 @@ Si tu testes en local, lance le build avant `npm start` pour que `server/public`
 - Le backend ecoute sur `process.env.PORT`.
 - `npm start` lance seulement l'API ; le frontend doit deja etre compile dans `server/public`.
 - Le build frontend est genere dans `server/public` via `npm run build`.
+- Sur Vercel, les routes `/api/*` passent par la fonction serverless `api/[...path].js`, tandis que le frontend est servi depuis `server/public`.
 - Si tu gardes cette architecture monolithique, Vercel est surtout adapte au frontend, et l'API Express doit etre hebergee ou exposee de maniere compatible.
 
 ## Authentification

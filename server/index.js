@@ -324,4 +324,11 @@ const startServer = async () => {
   }
 };
 
-startServer();
+const isMainModule = process.argv[1] && path.resolve(process.argv[1]) === __filename;
+
+export { app };
+export default app;
+
+if (isMainModule) {
+  startServer();
+}
