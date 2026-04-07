@@ -8,20 +8,20 @@ DevPulse est une application MERN qui sert de coffre partage pour les developpeu
 | --- | --- | --- |
 | Application MERN complete et testee | Oui | Le projet inclut une API Node/Express et un frontend React. |
 | Backend connecte a MongoDB Atlas | Oui | Le backend utilise `MONGODB_URI`. |
-| Compte Azure et configuration du portail | Etape manuelle | Il faut encore creer et configurer l'App Service dans Azure. |
+| Compte Vercel et configuration du projet | Etape manuelle | Il faut encore creer et configurer le projet sur Vercel. |
 | Cluster MongoDB Atlas configure | Etape manuelle | Cree le cluster et ajoute la chaine de connexion dans `.env`. |
 | Secrets dans des variables d'environnement | Oui | `.env.example` documente `MONGODB_URI` et `JWT_SECRET`. |
 | Build React de production | Oui | Le frontend est compile dans `server/public`. |
-| Web app Azure creee | Etape manuelle | A faire dans le portail Azure. |
-| Source de deploiement configuree | Etape manuelle | Choisis GitHub, Local Git ou une autre source de deploiement. |
-| Application deployee et testee | Partiel | L'application est prete, mais la validation finale depend d'Azure et de MongoDB. |
+| Projet Vercel configure | Etape manuelle | A faire dans le tableau de bord Vercel. |
+| Source de deploiement configuree | Etape manuelle | Connecte le depot GitHub dans Vercel. |
+| Application deployee et testee | Partiel | L'application est prete, mais la validation finale depend de Vercel et de MongoDB. |
 | Authentification utilisateur | Oui | Connexion, inscription, sessions JWT et donnees separees par utilisateur. |
 
 ## Pourquoi cette app
 
 - Elle est utile a une equipe de developpeurs.
 - Elle montre un vrai flux de travail MERN.
-- Elle se deploie proprement sur Azure App Service avec MongoDB Atlas.
+- Elle se deploie proprement avec MongoDB Atlas et une plateforme de deploiement comme Vercel.
 
 ## Fonctionnalites
 
@@ -55,30 +55,25 @@ npm start
 
 Si tu testes en local, lance le build avant `npm start` pour que `server/public` contienne le frontend a jour.
 
-## Deploiement Azure
+## Deploiement Vercel
 
-### Configuration conseillee dans le portail
+### Configuration conseillee
 
-1. Cree une App Service Web App dans le portail Azure.
-2. Choisis une version Node.js LTS recente, supportee dans ta region.
-3. Utilise de preference l'hebergement Linux.
-4. Dans `Settings > Configuration > Application settings`, ajoute :
+1. Cree un projet dans Vercel a partir du depot GitHub.
+2. Definis les variables d'environnement dans Vercel :
    - `MONGODB_URI`
    - `JWT_SECRET`
    - `NODE_ENV=production`
-   - `SCM_DO_BUILD_DURING_DEPLOYMENT=true`
-5. Dans `Settings > Configuration > General settings`, garde `npm start` comme commande de demarrage si Azure la demande.
-6. Dans `Deployment Center`, connecte :
-   - soit un depot GitHub avec deploiement continu,
-   - soit Local Git si tu veux pousser depuis ta machine.
-7. Apres le deploiement, ouvre le domaine par defaut et verifie que l'interface React se charge et que l'endpoint de sante retourne un etat correct.
+3. Lance un build frontend avec `npm run build` si tu deploies le front compile depuis ce depot.
+4. Verifie que l'application pointe vers l'API correcte si le backend est heberge ailleurs.
+5. Apres le deploiement, ouvre l'URL Vercel et teste la connexion, l'inscription et le chargement des extraits.
 
 ### Details d'execution
 
 - Le backend ecoute sur `process.env.PORT`.
 - `npm start` lance seulement l'API ; le frontend doit deja etre compile dans `server/public`.
 - Le build frontend est genere dans `server/public` via `npm run build`.
-- Oryx et App Service peuvent executer `npm run build` si le depot contient un script `build`.
+- Si tu gardes cette architecture monolithique, Vercel est surtout adapte au frontend, et l'API Express doit etre hebergee ou exposee de maniere compatible.
 
 ## Authentification
 
